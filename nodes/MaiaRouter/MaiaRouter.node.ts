@@ -46,6 +46,10 @@ export class MaiaRouter implements INodeType {
 						name: 'Chat',
 						value: 'chat',
 					},
+					{
+						name: 'Audio',
+						value: 'audio',
+					},
 				],
 				default: 'chat',
 			},
@@ -61,9 +65,9 @@ export class MaiaRouter implements INodeType {
 				},
 				options: [
 					{
-						name: 'Create Completion',
-						value: 'createCompletion',
-						action: 'Create a chat completion',
+						name: 'Message a model',
+						value: 'messageModel',
+						action: 'Message a model',
 						description: 'Generate a response using AI models',
 						routing: {
 							request: {
@@ -73,7 +77,34 @@ export class MaiaRouter implements INodeType {
 						},
 					},
 				],
-				default: 'createCompletion',
+				default: 'messageModel',
+			},
+			// Audio Operations
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+					},
+				},
+				options: [
+					{
+						name: 'Text to Speech',
+						value: 'textToSpeech',
+						action: 'Convert text to speech',
+						description: 'Generate audio from text using AI voice models',
+					},
+					{
+						name: 'Transcribe',
+						value: 'transcribe',
+						action: 'Transcribe audio to text',
+						description: 'Convert audio to text using speech recognition',
+					},
+				],
+				default: 'textToSpeech',
 			},
 			{
 				displayName: 'Model',
@@ -82,7 +113,7 @@ export class MaiaRouter implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['chat'],
-						operation: ['createCompletion'],
+						operation: ['messageModel'],
 					},
 				},
 				default: 'maia/gemini-2.5-flash',
@@ -99,7 +130,7 @@ export class MaiaRouter implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['chat'],
-						operation: ['createCompletion'],
+						operation: ['messageModel'],
 					},
 				},
 				default: {},
@@ -154,7 +185,7 @@ export class MaiaRouter implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['chat'],
-						operation: ['createCompletion'],
+						operation: ['messageModel'],
 					},
 				},
 				options: [
@@ -229,6 +260,282 @@ export class MaiaRouter implements INodeType {
 					},
 				],
 			},
+			// Text to Speech Parameters
+			{
+				displayName: 'Model',
+				name: 'ttsModel',
+				type: 'string',
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+						operation: ['textToSpeech'],
+					},
+				},
+				default: 'openai/gpt-4o-mini-tts',
+				required: true,
+				description: 'ID of the TTS model to use (e.g., maia/tts-1, maia/tts-1-hd)',
+			},
+			{
+				displayName: 'Input Text',
+				name: 'input',
+				type: 'string',
+				typeOptions: {
+					rows: 4,
+				},
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+						operation: ['textToSpeech'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'The text to generate audio for. Maximum length is 4096 characters.',
+			},
+			{
+				displayName: 'Voice',
+				name: 'voice',
+				type: 'options',
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+						operation: ['textToSpeech'],
+					},
+				},
+				options: [
+					{
+						name: 'Alloy',
+						value: 'alloy',
+					},
+					{
+						name: 'Echo',
+						value: 'echo',
+					},
+					{
+						name: 'Fable',
+						value: 'fable',
+					},
+					{
+						name: 'Onyx',
+						value: 'onyx',
+					},
+					{
+						name: 'Nova',
+						value: 'nova',
+					},
+					{
+						name: 'Shimmer',
+						value: 'shimmer',
+					},
+				],
+				default: 'alloy',
+				required: true,
+				description: 'The voice to use for audio generation',
+			},
+			{
+				displayName: 'Additional Fields',
+				name: 'ttsAdditionalFields',
+				type: 'collection',
+				placeholder: 'Add Field',
+				default: {},
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+						operation: ['textToSpeech'],
+					},
+				},
+				options: [
+					{
+						displayName: 'Response Format',
+						name: 'response_format',
+						type: 'options',
+						options: [
+							{
+								name: 'MP3',
+								value: 'mp3',
+							},
+							{
+								name: 'OPUS',
+								value: 'opus',
+							},
+							{
+								name: 'AAC',
+								value: 'aac',
+							},
+							{
+								name: 'FLAC',
+								value: 'flac',
+							},
+							{
+								name: 'WAV',
+								value: 'wav',
+							},
+							{
+								name: 'PCM',
+								value: 'pcm',
+							},
+						],
+						default: 'mp3',
+						description: 'The format of the audio output',
+					},
+					{
+						displayName: 'Speed',
+						name: 'speed',
+						type: 'number',
+						typeOptions: {
+							minValue: 0.25,
+							maxValue: 4.0,
+							numberPrecision: 2,
+						},
+						default: 1.0,
+						description: 'The speed of the generated audio. Select a value from 0.25 to 4.0.',
+					},
+				],
+			},
+			// Transcribe Parameters
+			{
+				displayName: 'Model',
+				name: 'transcribeModel',
+				type: 'string',
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+						operation: ['transcribe'],
+					},
+				},
+				default: 'openai/gpt-4o-mini-transcribe',
+				required: true,
+				description: 'ID of the transcription model to use (e.g., maia/whisper-1)',
+			},
+			{
+				displayName: 'Input Data Mode',
+				name: 'inputDataMode',
+				type: 'options',
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+						operation: ['transcribe'],
+					},
+				},
+				options: [
+					{
+						name: 'Binary File',
+						value: 'binaryData',
+						description: 'Audio file from previous node',
+					},
+					{
+						name: 'Audio URL',
+						value: 'url',
+						description: 'URL of the audio file',
+					},
+				],
+				default: 'binaryData',
+				description: 'How to provide the audio data',
+			},
+			{
+				displayName: 'Binary Property',
+				name: 'binaryProperty',
+				type: 'string',
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+						operation: ['transcribe'],
+						inputDataMode: ['binaryData'],
+					},
+				},
+				default: 'data',
+				required: true,
+				description: 'Name of the binary property containing the audio file',
+			},
+			{
+				displayName: 'Audio URL',
+				name: 'audioUrl',
+				type: 'string',
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+						operation: ['transcribe'],
+						inputDataMode: ['url'],
+					},
+				},
+				default: '',
+				required: true,
+				description: 'URL of the audio file to transcribe',
+			},
+			{
+				displayName: 'Additional Fields',
+				name: 'transcribeAdditionalFields',
+				type: 'collection',
+				placeholder: 'Add Field',
+				default: {},
+				displayOptions: {
+					show: {
+						resource: ['audio'],
+						operation: ['transcribe'],
+					},
+				},
+				options: [
+					{
+						displayName: 'Language',
+						name: 'language',
+						type: 'string',
+						default: '',
+						placeholder: 'en',
+						description: 'The language of the input audio in ISO-639-1 format (e.g., en, es, fr)',
+					},
+					{
+						displayName: 'Prompt',
+						name: 'prompt',
+						type: 'string',
+						typeOptions: {
+							rows: 3,
+						},
+						default: '',
+						description: 'Optional text to guide the model\'s style or continue a previous audio segment',
+					},
+					{
+						displayName: 'Response Format',
+						name: 'response_format',
+						type: 'options',
+						options: [
+							{
+								name: 'JSON',
+								value: 'json',
+							},
+							{
+								name: 'Text',
+								value: 'text',
+							},
+							{
+								name: 'SRT',
+								value: 'srt',
+							},
+							{
+								name: 'VTT',
+								value: 'vtt',
+							},
+							{
+								name: 'Verbose JSON',
+								value: 'verbose_json',
+							},
+						],
+						default: 'json',
+						description: 'The format of the transcript output',
+					},
+					{
+						displayName: 'Temperature',
+						name: 'temperature',
+						type: 'number',
+						typeOptions: {
+							minValue: 0,
+							maxValue: 1,
+							numberPrecision: 2,
+						},
+						default: 0,
+						description: 'The sampling temperature between 0 and 1',
+					},
+				],
+			},
 		],
 	};
 
@@ -241,7 +548,7 @@ export class MaiaRouter implements INodeType {
 		for (let i = 0; i < items.length; i++) {
 			try {
 				if (resource === 'chat') {
-					if (operation === 'createCompletion') {
+					if (operation === 'messageModel') {
 						const model = this.getNodeParameter('model', i) as string;
 						const messagesData = this.getNodeParameter('messages', i) as IDataObject;
 						const additionalFields = this.getNodeParameter('additionalFields', i) as IDataObject;
@@ -305,6 +612,143 @@ export class MaiaRouter implements INodeType {
 							},
 							body: JSON.stringify(body),
 							uri: 'https://router.maia.id/api/v1/chat/completions',
+							json: true,
+						};
+
+						const response = await this.helpers.request(options as IRequestOptions);
+
+						returnData.push({
+							json: response,
+							pairedItem: { item: i },
+						});
+					}
+				} else if (resource === 'audio') {
+					const credentials = await this.getCredentials('maiaRouterApi');
+
+					if (operation === 'textToSpeech') {
+						const model = this.getNodeParameter('ttsModel', i) as string;
+						const input = this.getNodeParameter('input', i) as string;
+						const voice = this.getNodeParameter('voice', i) as string;
+						const additionalFields = this.getNodeParameter('ttsAdditionalFields', i) as IDataObject;
+
+						// Build request body
+						const body: IDataObject = {
+							model,
+							input,
+							voice,
+						};
+
+						// Add additional fields
+						if (additionalFields.response_format !== undefined) {
+							body.response_format = additionalFields.response_format;
+						}
+						if (additionalFields.speed !== undefined) {
+							body.speed = additionalFields.speed;
+						}
+
+						// Make API request
+						const options = {
+							method: 'POST',
+							headers: {
+								'Authorization': `Bearer ${credentials.apiKey}`,
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify(body),
+							uri: 'https://router.maia.id/api/v1/audio/speech',
+							encoding: null, // Get response as buffer
+						};
+
+						const response = await this.helpers.request(options as IRequestOptions);
+
+						// Return audio as binary data
+						const binaryData = await this.helpers.prepareBinaryData(
+							Buffer.from(response as string),
+							`audio.${additionalFields.response_format || 'mp3'}`,
+							`audio/${additionalFields.response_format || 'mp3'}`,
+						);
+
+						returnData.push({
+							json: {
+								success: true,
+								model,
+								voice,
+								format: additionalFields.response_format || 'mp3',
+							},
+							binary: {
+								data: binaryData,
+							},
+							pairedItem: { item: i },
+						});
+					} else if (operation === 'transcribe') {
+						const model = this.getNodeParameter('transcribeModel', i) as string;
+						const inputDataMode = this.getNodeParameter('inputDataMode', i) as string;
+						const additionalFields = this.getNodeParameter('transcribeAdditionalFields', i) as IDataObject;
+
+						let formData: any = {};
+
+						// Handle audio input
+						if (inputDataMode === 'binaryData') {
+							const binaryPropertyName = this.getNodeParameter('binaryProperty', i) as string;
+							const binaryData = this.helpers.assertBinaryData(i, binaryPropertyName);
+
+							// Get binary data buffer
+							const binaryDataBuffer = await this.helpers.getBinaryDataBuffer(i, binaryPropertyName);
+
+							// Set up formData with proper file structure
+							formData = {
+								file: {
+									value: binaryDataBuffer,
+									options: {
+										filename: binaryData.fileName || 'audio.mp3',
+										contentType: binaryData.mimeType || 'audio/mpeg',
+									},
+								},
+								model: model,
+							};
+						} else if (inputDataMode === 'url') {
+							// For URL mode, download the file first then upload it
+							const audioUrl = this.getNodeParameter('audioUrl', i) as string;
+
+							const fileBuffer = await this.helpers.request({
+								method: 'GET',
+								uri: audioUrl,
+								encoding: null,
+							} as IRequestOptions);
+
+							formData = {
+								file: {
+									value: fileBuffer,
+									options: {
+										filename: 'audio.mp3',
+										contentType: 'audio/mpeg',
+									},
+								},
+								model: model,
+							};
+						}
+
+						// Add additional fields as strings
+						if (additionalFields.language) {
+							formData.language = additionalFields.language as string;
+						}
+						if (additionalFields.prompt) {
+							formData.prompt = additionalFields.prompt as string;
+						}
+						if (additionalFields.response_format) {
+							formData.response_format = additionalFields.response_format as string;
+						}
+						if (additionalFields.temperature !== undefined) {
+							formData.temperature = String(additionalFields.temperature);
+						}
+
+						// Make API request
+						const options = {
+							method: 'POST',
+							headers: {
+								'Authorization': `Bearer ${credentials.apiKey}`,
+							},
+							formData: formData,
+							uri: 'https://router.maia.id/api/v1/audio/transcriptions',
 							json: true,
 						};
 
