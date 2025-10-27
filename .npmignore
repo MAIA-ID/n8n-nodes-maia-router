@@ -1,0 +1,43 @@
+# Source files (we only want dist/)
+nodes/
+credentials/
+*.ts
+!*.d.ts
+
+# Build configuration
+tsconfig.json
+gulpfile.js
+.eslintrc.js
+.prettierrc.js
+
+# Development files
+.github/
+.vscode/
+.idea/
+node_modules/
+
+# Git files
+.git/
+.gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+test/
+tests/
+*.test.js
+*.spec.js
+
+# Documentation (keep README.md and LICENSE.md)
+docs/
+LOCAL_TESTING.md
+
+# Misc
+.env
+.env.*

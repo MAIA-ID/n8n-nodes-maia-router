@@ -1,0 +1,65 @@
+{
+  "name": "n8n-nodes-maia-router",
+  "version": "0.1.0",
+  "description": "n8n community node for Maia Router API",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "maia",
+    "ai",
+    "llm"
+  ],
+  "license": "MIT",
+  "homepage": "https://router.maia.id",
+  "author": {
+    "name": "MAIA Team",
+    "email": "support@maia.id",
+    "url": "https://router.maia.id"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mayar/n8n-nodes-maia-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mayar/n8n-nodes-maia-router/issues"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials package.json",
+    "lintfix": "eslint nodes credentials package.json --fix",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist",
+    "index.js",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/MaiaRouterApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/MaiaRouter/MaiaRouter.node.js",
+      "dist/nodes/MaiaRouterChatModel/MaiaRouterChatModel.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-n8n-nodes-base": "^1.11.0",
+    "gulp": "^4.0.2",
+    "n8n-workflow": "^1.0.0",
+    "prettier": "^2.7.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "n8n-core": "^1.0.0",
+    "@langchain/openai": "^0.3.0",
+    "@langchain/core": "^0.3.0"
+  }
+}
