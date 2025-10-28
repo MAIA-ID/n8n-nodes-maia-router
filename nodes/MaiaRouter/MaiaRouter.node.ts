@@ -6,6 +6,7 @@ import {
 	IDataObject,
 	NodeOperationError,
 	IRequestOptions,
+	IHttpRequestOptions,
 } from 'n8n-workflow';
 
 export class MaiaRouter implements INodeType {
@@ -29,7 +30,7 @@ export class MaiaRouter implements INodeType {
 			},
 		],
 		requestDefaults: {
-			baseURL: 'https://maiarouter.ai/api/v1',
+			baseURL: 'https://api.maiarouter.ai/v1',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
@@ -611,11 +612,11 @@ export class MaiaRouter implements INodeType {
 								'Content-Type': 'application/json',
 							},
 							body: JSON.stringify(body),
-							uri: 'https://maiarouter.ai/api/v1/chat/completions',
+							url: 'https://api.maiarouter.ai/v1/chat/completions',
 							json: true,
 						};
 
-						const response = await this.helpers.request(options as IRequestOptions);
+						const response = await this.helpers.httpRequest(options as IHttpRequestOptions);
 
 						returnData.push({
 							json: response,
@@ -654,11 +655,11 @@ export class MaiaRouter implements INodeType {
 								'Content-Type': 'application/json',
 							},
 							body: JSON.stringify(body),
-							uri: 'https://maiarouter.ai/api/v1/audio/speech',
-							encoding: null, // Get response as buffer
+							url: 'https://api.maiarouter.ai/v1/audio/speech',
+							encoding: 'buffer', // Get response as buffer
 						};
 
-						const response = await this.helpers.request(options as IRequestOptions);
+						const response = await this.helpers.httpRequest(options as IHttpRequestOptions);
 
 						// Return audio as binary data
 						const binaryData = await this.helpers.prepareBinaryData(
@@ -709,11 +710,11 @@ export class MaiaRouter implements INodeType {
 							// For URL mode, download the file first then upload it
 							const audioUrl = this.getNodeParameter('audioUrl', i) as string;
 
-							const fileBuffer = await this.helpers.request({
+							const fileBuffer = await this.helpers.httpRequest({
 								method: 'GET',
-								uri: audioUrl,
-								encoding: null,
-							} as IRequestOptions);
+								url: audioUrl,
+								encoding: 'arraybuffer',
+							} as IHttpRequestOptions);
 
 							formData = {
 								file: {
@@ -748,11 +749,11 @@ export class MaiaRouter implements INodeType {
 								'Authorization': `Bearer ${credentials.apiKey}`,
 							},
 							formData: formData,
-							uri: 'https://maiarouter.ai/api/v1/audio/transcriptions',
+							url: 'https://api.maiarouter.ai/v1/audio/transcriptions',
 							json: true,
 						};
 
-						const response = await this.helpers.request(options as IRequestOptions);
+						const response = await this.helpers.httpRequest(options as IHttpRequestOptions);
 
 						returnData.push({
 							json: response,

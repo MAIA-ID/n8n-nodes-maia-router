@@ -32,7 +32,7 @@ export class MaiaRouterApi implements ICredentialType {
 
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: 'https://maiarouter.ai/api/v1',
+			baseURL: 'https://api.maiarouter.ai/v1',
 			url: '/models',
 			method: 'GET',
 		},

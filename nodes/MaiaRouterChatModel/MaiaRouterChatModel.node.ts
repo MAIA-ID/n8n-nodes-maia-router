@@ -119,19 +119,19 @@ export class MaiaRouterChatModel implements INodeType {
 			topP?: number;
 			frequencyPenalty?: number;
 			presencePenalty?: number;
+			timeout?: number;
+		};
+
+		const configuration = {
+			baseURL: 'https://api.maiarouter.ai/v1',
 		};
 
 		const model = new ChatOpenAI({
-			modelName,
+			model: modelName,
 			apiKey: credentials.apiKey as string,
-			configuration: {
-				baseURL: 'https://maiarouter.ai/api/v1',
-			},
-			temperature: options.temperature,
-			maxTokens: options.maxTokens !== undefined ? options.maxTokens : undefined,
-			topP: options.topP,
-			frequencyPenalty: options.frequencyPenalty,
-			presencePenalty: options.presencePenalty,
+			configuration,
+			...options,
+			timeout: options.timeout || 60000,
 		});
 
 		return {

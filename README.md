@@ -53,7 +53,7 @@ You need to configure your Maia Router API credentials in n8n:
 1. Create a new credential of type **Maia Router API**
 2. Enter your API key from [Maia Router](https://maiarouter.ai)
 
-The node connects to `https://maiarouter.ai/api/v1` by default.
+The node connects to `https://api.maiarouter.ai/v1` by default.
 
 ## Node Details
 
