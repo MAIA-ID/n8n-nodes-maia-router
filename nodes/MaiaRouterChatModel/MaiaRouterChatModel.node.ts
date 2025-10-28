@@ -33,7 +33,7 @@ export class MaiaRouterChatModel implements INodeType {
 			resources: {
 				primaryDocumentation: [
 					{
-						url: 'https://router.maia.id',
+						url: 'https://maiarouter.ai',
 					},
 				],
 			},
@@ -46,7 +46,7 @@ export class MaiaRouterChatModel implements INodeType {
 				displayName: 'Model',
 				name: 'model',
 				type: 'string',
-				description: 'The model to use (e.g., maia/gemini-2.5-flash, maia/gpt-4o, maia/claude-3.5-sonnet). See all models at https://router.maia.id/dashboard/models',
+				description: 'The model to use (e.g., maia/gemini-2.5-flash, maia/gpt-4o, maia/claude-3.5-sonnet). See all models at https://maiarouter.ai/dashboard/models',
 				default: 'maia/gemini-2.5-flash',
 				placeholder: 'maia/gemini-2.5-flash',
 				required: true,
@@ -125,7 +125,7 @@ export class MaiaRouterChatModel implements INodeType {
 			modelName,
 			apiKey: credentials.apiKey as string,
 			configuration: {
-				baseURL: 'https://router.maia.id/api/v1',
+				baseURL: 'https://maiarouter.ai/api/v1',
 			},
 			temperature: options.temperature,
 			maxTokens: options.maxTokens !== undefined ? options.maxTokens : undefined,

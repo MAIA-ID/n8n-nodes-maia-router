@@ -1,6 +1,6 @@
 # n8n Integration for MAIA Router
 
-This is an n8n community node package for integrating with [Maia Router](https://router.maia.id), an AI model routing service.
+This is an n8n community node package for integrating with [Maia Router](https://maiarouter.ai), an AI model routing service.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -51,9 +51,9 @@ npm link n8n-nodes-maia-router
 You need to configure your Maia Router API credentials in n8n:
 
 1. Create a new credential of type **Maia Router API**
-2. Enter your API key from [Maia Router](https://router.maia.id)
+2. Enter your API key from [Maia Router](https://maiarouter.ai)
 
-The node connects to `https://router.maia.id/api/v1` by default.
+The node connects to `https://maiarouter.ai/api/v1` by default.
 
 ## Node Details
 
@@ -176,7 +176,7 @@ Build a conversational AI with memory:
 ## Resources
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-- [Maia Router Documentation](https://router.maia.id)
+- [Maia Router Documentation](https://maiarouter.ai)
 
 ## Development
 

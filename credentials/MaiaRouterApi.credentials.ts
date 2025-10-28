@@ -8,7 +8,7 @@ import {
 export class MaiaRouterApi implements ICredentialType {
 	name = 'maiaRouterApi';
 	displayName = 'Maia Router API';
-	documentationUrl = 'https://router.maia.id';
+	documentationUrl = 'https://maiarouter.ai';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'API Key',
@@ -32,7 +32,7 @@ export class MaiaRouterApi implements ICredentialType {
 
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: 'https://router.maia.id/api/v1',
+			baseURL: 'https://maiarouter.ai/api/v1',
 			url: '/models',
 			method: 'GET',
 		},

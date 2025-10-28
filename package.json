@@ -10,11 +10,11 @@
     "llm"
   ],
   "license": "MIT",
-  "homepage": "https://router.maia.id",
+  "homepage": "https://maiarouter.ai",
   "author": {
     "name": "MAIA Team",
-    "email": "support@maia.id",
-    "url": "https://router.maia.id"
+    "email": "cs@maia.id",
+    "url": "https://maiarouter.ai"
   },
   "repository": {
     "type": "git",

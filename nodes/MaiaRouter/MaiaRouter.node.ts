@@ -29,7 +29,7 @@ export class MaiaRouter implements INodeType {
 			},
 		],
 		requestDefaults: {
-			baseURL: 'https://router.maia.id/api/v1',
+			baseURL: 'https://maiarouter.ai/api/v1',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
@@ -611,7 +611,7 @@ export class MaiaRouter implements INodeType {
 								'Content-Type': 'application/json',
 							},
 							body: JSON.stringify(body),
-							uri: 'https://router.maia.id/api/v1/chat/completions',
+							uri: 'https://maiarouter.ai/api/v1/chat/completions',
 							json: true,
 						};
 
@@ -654,7 +654,7 @@ export class MaiaRouter implements INodeType {
 								'Content-Type': 'application/json',
 							},
 							body: JSON.stringify(body),
-							uri: 'https://router.maia.id/api/v1/audio/speech',
+							uri: 'https://maiarouter.ai/api/v1/audio/speech',
 							encoding: null, // Get response as buffer
 						};
 
@@ -748,7 +748,7 @@ export class MaiaRouter implements INodeType {
 								'Authorization': `Bearer ${credentials.apiKey}`,
 							},
 							formData: formData,
-							uri: 'https://router.maia.id/api/v1/audio/transcriptions',
+							uri: 'https://maiarouter.ai/api/v1/audio/transcriptions',
 							json: true,
 						};
 
