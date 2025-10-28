@@ -65,5 +65,10 @@ fi
 
 echo "Version bumped: $OLD_VERSION -> $NEW_VERSION"
 
-echo "Running tag and push repository..."
-npm run tag
+echo "Staging and committing version bump..."
+git add package.json
+git commit -m "chore: bump version to $NEW_VERSION"
+
+echo "Creating git tag and pushing..."
+git tag v$NEW_VERSION
+git push origin main --follow-tags

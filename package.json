@@ -30,8 +30,7 @@
     "format": "prettier nodes credentials --write",
     "lint": "eslint nodes credentials package.json",
     "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "npm run build",
-    "tag": "git tag v$(node -p \"require('./package.json').version\") && git commit -am 'push new tag' && git push && git push origin v$(node -p \"require('./package.json').version\")"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist",
