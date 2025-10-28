@@ -208,3 +208,25 @@ npm run format
 ## Support
 
 For issues and feature requests, please visit the [GitHub repository](https://github.com/yourusername/n8n-nodes-maia-router/issues).
+
+
+## Release
+
+Release is handled using the [`bump.sh`](./bump.sh) script.
+
+This script automatically bumps the package version in `package.json`.  
+You can run it from the project root as follows:
+
+```sh
+./bump.sh [major|minor|patch]
+```
+
+This will:
+- Update the `version` field in `package.json`
+- Create a git tag and push to remote (via `npm run tag`)
+
+**Note:**  
+- You must have git permissions to push tags for this to work.
+- Ensure your working directory is clean before running, as the tag commit will stage and push changes.
+
+See [`bump.sh`](./bump.sh) for implementation details.
