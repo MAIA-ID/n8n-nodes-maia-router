@@ -71,4 +71,5 @@ git commit -m "chore: bump version to $NEW_VERSION"
 
 echo "Creating git tag and pushing..."
 git tag v$NEW_VERSION
-git push origin main --follow-tags
+git push origin main
+git push origin v$NEW_VERSION
