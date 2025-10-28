@@ -23,7 +23,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 1. Open n8n
 2. Go to **Settings** > **Community Nodes**
 3. Select **Install**
-4. Enter `n8n-nodes-maia-router` in **Enter npm package name**
+4. Enter `@maia-id/n8n-nodes-maia-router` in **Enter npm package name**
 5. Agree to the risks and install
 
 ### Manual Installation
