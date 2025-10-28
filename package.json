@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes-maia-router",
+  "name": "@maia-id/n8n-nodes-maia-router",
   "version": "0.1.0",
   "description": "n8n community node for Maia Router API",
   "keywords": [
@@ -18,10 +18,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mayar/n8n-nodes-maia-router.git"
+    "url": "https://github.com/maia-id/n8n-nodes-maia-router.git"
   },
   "bugs": {
-    "url": "https://github.com/mayar/n8n-nodes-maia-router/issues"
+    "url": "https://github.com/maia-id/n8n-nodes-maia-router/issues"
   },
   "main": "index.js",
   "scripts": {
