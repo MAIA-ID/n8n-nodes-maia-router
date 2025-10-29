@@ -44,7 +44,6 @@ jobs:
 
       - name: Build package
         run: |
-          cd ${{ steps.package.outputs.path }}
           npm run build
 
       - name: Verify build output
