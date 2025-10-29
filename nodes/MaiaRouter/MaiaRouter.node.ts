@@ -259,6 +259,102 @@ export class MaiaRouter implements INodeType {
 						default: 0,
 						description: 'Penalty for new tokens based on their existing frequency in the text',
 					},
+					{
+						displayName: 'Tools',
+						name: 'tools',
+						type: 'fixedCollection',
+						typeOptions: {
+							multipleValues: true,
+						},
+						default: {},
+						placeholder: 'Add Tool',
+						description: 'AI tools to enable for this request',
+						options: [
+							{
+								name: 'toolValues',
+								displayName: 'Tool',
+								values: [
+									{
+										displayName: 'Tool Type',
+										name: 'toolType',
+										type: 'options',
+										options: [
+											{
+												name: 'Google Maps',
+												value: 'googleMaps',
+												description: 'Enable Google Maps integration for location-based queries',
+											},
+											{
+												name: 'URL Context',
+												value: 'urlContext',
+												description: 'Enable URL parsing and content extraction',
+											},
+											{
+												name: 'Code Execution',
+												value: 'codeExecution',
+												description: 'Enable code execution capabilities',
+											},
+											{
+												name: 'Google Search',
+												value: 'googleSearch',
+												description: 'Enable Google Search integration',
+											},
+										],
+										default: 'googleSearch',
+										description: 'Type of tool to enable',
+									},
+									{
+										displayName: 'Enable Widget',
+										name: 'enableWidget',
+										type: 'boolean',
+										default: false,
+										displayOptions: {
+											show: {
+												toolType: ['googleMaps'],
+											},
+										},
+										description: 'Whether to enable the Google Maps widget',
+									},
+									{
+										displayName: 'Latitude',
+										name: 'latitude',
+										type: 'number',
+										default: 0,
+										displayOptions: {
+											show: {
+												toolType: ['googleMaps'],
+											},
+										},
+										description: 'Latitude coordinate for Google Maps',
+									},
+									{
+										displayName: 'Longitude',
+										name: 'longitude',
+										type: 'number',
+										default: 0,
+										displayOptions: {
+											show: {
+												toolType: ['googleMaps'],
+											},
+										},
+										description: 'Longitude coordinate for Google Maps',
+									},
+									{
+										displayName: 'Language Code',
+										name: 'languageCode',
+										type: 'string',
+										default: 'en_US',
+										displayOptions: {
+											show: {
+												toolType: ['googleMaps'],
+											},
+										},
+										description: 'Language code for Google Maps (e.g., en_US, id_ID)',
+									},
+								],
+							},
+						],
+					},
 				],
 			},
 			// Text to Speech Parameters
@@ -601,6 +697,46 @@ export class MaiaRouter implements INodeType {
 						}
 						if (additionalFields.frequency_penalty !== undefined) {
 							body.frequency_penalty = additionalFields.frequency_penalty;
+						}
+
+						// Add tools if configured
+						if (additionalFields.tools) {
+							const toolsConfig = additionalFields.tools as IDataObject;
+							if (toolsConfig.toolValues) {
+								const toolValues = toolsConfig.toolValues as IDataObject[];
+								const tools: IDataObject[] = [];
+
+								for (const tool of toolValues) {
+									const toolType = tool.toolType as string;
+
+									if (toolType === 'googleMaps') {
+										const googleMapsConfig: IDataObject = {};
+										if (tool.enableWidget !== undefined) {
+											googleMapsConfig.enableWidget = tool.enableWidget;
+										}
+										if (tool.latitude !== undefined) {
+											googleMapsConfig.latitude = tool.latitude;
+										}
+										if (tool.longitude !== undefined) {
+											googleMapsConfig.longitude = tool.longitude;
+										}
+										if (tool.languageCode) {
+											googleMapsConfig.languageCode = tool.languageCode;
+										}
+										tools.push({ googleMaps: googleMapsConfig });
+									} else if (toolType === 'urlContext') {
+										tools.push({ urlContext: {} });
+									} else if (toolType === 'codeExecution') {
+										tools.push({ codeExecution: {} });
+									} else if (toolType === 'googleSearch') {
+										tools.push({ googleSearch: {} });
+									}
+								}
+
+								if (tools.length > 0) {
+									body.tools = tools;
+								}
+							}
 						}
 
 						// Make API request
