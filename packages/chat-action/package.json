@@ -1,8 +1,14 @@
 {
   "name": "@maia-id/n8n-nodes-maia-router-chat-action",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MAIA Router action nodes - Chat, Audio, etc. (Cloud Compatible)",
-  "keywords": ["n8n-community-node-package", "n8n", "maia-router", "ai", "llm"],
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "maia-router",
+    "ai",
+    "llm"
+  ],
   "license": "MIT",
   "homepage": "https://maiarouter.ai",
   "author": {
