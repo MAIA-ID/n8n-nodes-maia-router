@@ -1,9 +1,7 @@
 import {
-	IExecuteFunctions,
 	INodeType,
 	INodeTypeDescription,
 	SupplyData,
-	INodePropertyOptions,
 	ISupplyDataFunctions,
 } from 'n8n-workflow';
 import { ChatOpenAI } from '@langchain/openai';
@@ -124,6 +122,10 @@ export class MaiaRouterChatModel implements INodeType {
 
 		const configuration = {
 			baseURL: 'https://api.maiarouter.ai/v1',
+			defaultHeaders: {
+				'User-Agent': 'n8n-maia-router-community-node/1.0',
+				'X-Client-Name': 'n8n',
+			},
 		};
 
 		const model = new ChatOpenAI({
