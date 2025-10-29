@@ -48,7 +48,6 @@ jobs:
 
       - name: Verify build output
         run: |
-          cd ${{ steps.package.outputs.path }}
           echo "Checking dist directory..."
           ls -la dist/
           echo "Checking credentials..."
