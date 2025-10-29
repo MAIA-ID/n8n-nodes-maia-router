@@ -1,6 +1,6 @@
 {
   "name": "@maia-id/n8n-nodes-maia-router",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "n8n community node for Maia Router API",
   "keywords": [
     "n8n-community-node-package",
