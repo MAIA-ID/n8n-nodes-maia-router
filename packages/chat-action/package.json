@@ -1,14 +1,8 @@
 {
-  "name": "@maia-id/n8n-nodes-maia-router",
-  "version": "1.0.3",
-  "description": "n8n community node for Maia Router API",
-  "keywords": [
-    "n8n-community-node-package",
-    "n8n",
-    "maia",
-    "ai",
-    "llm"
-  ],
+  "name": "@maia-id/n8n-nodes-maia-router-chat-action",
+  "version": "1.0.0",
+  "description": "MAIA Router action nodes - Chat, Audio, etc. (Cloud Compatible)",
+  "keywords": ["n8n-community-node-package", "n8n", "maia-router", "ai", "llm"],
   "license": "MIT",
   "homepage": "https://maiarouter.ai",
   "author": {
@@ -18,7 +12,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maia-id/n8n-nodes-maia-router.git"
+    "url": "https://github.com/maia-id/n8n-nodes-maia-router.git",
+    "directory": "packages/chat-action"
   },
   "bugs": {
     "url": "https://github.com/maia-id/n8n-nodes-maia-router/issues"
@@ -30,8 +25,7 @@
     "format": "prettier nodes credentials --write",
     "lint": "eslint nodes credentials package.json",
     "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "npm run build",
-    "test:langchain": "tsx test-langchain.ts"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist",
@@ -45,8 +39,7 @@
       "dist/credentials/MaiaRouterApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/MaiaRouter/MaiaRouter.node.js",
-      "dist/nodes/MaiaRouterChatModel/MaiaRouterChatModel.node.js"
+      "dist/nodes/MaiaRouter/MaiaRouter.node.js"
     ]
   },
   "devDependencies": {
@@ -59,8 +52,6 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@langchain/core": "^1.0.2",
-    "@langchain/openai": "^1.0.0",
     "n8n-core": "^1.0.0"
   }
 }

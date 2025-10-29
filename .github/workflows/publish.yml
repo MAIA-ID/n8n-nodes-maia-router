@@ -3,7 +3,8 @@ name: Publish to npm
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'maia-router-chat-action-v*.*.*'
+      - 'maia-router-v*.*.*'
 
 jobs:
   publish:
@@ -19,36 +20,53 @@ jobs:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Determine package to publish
+        id: package
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "Tag: $TAG"
+
+          if [[ $TAG == maia-router-chat-action-v* ]]; then
+            echo "package=chat-action" >> $GITHUB_OUTPUT
+            echo "path=packages/chat-action" >> $GITHUB_OUTPUT
+          elif [[ $TAG == maia-router-v* ]]; then
+            echo "package=chat-model" >> $GITHUB_OUTPUT
+            echo "path=packages/chat-model" >> $GITHUB_OUTPUT
+          else
+            echo "Unknown tag format: $TAG"
+            exit 1
+          fi
+
       - name: Install dependencies
-        run: npm ci
+        run: |
+          cd ${{ steps.package.outputs.path }}
+          npm ci
 
       - name: Build package
-        run: npm run build
+        run: |
+          cd ${{ steps.package.outputs.path }}
+          npm run build
 
       - name: Verify build output
         run: |
+          cd ${{ steps.package.outputs.path }}
           echo "Checking dist directory..."
           ls -la dist/
           echo "Checking credentials..."
           ls -la dist/credentials/
           echo "Checking nodes..."
           ls -la dist/nodes/
-          echo "Checking MaiaRouter node..."
-          ls -la dist/nodes/MaiaRouter/
-          echo "Checking MaiaRouterChatModel node..."
-          ls -la dist/nodes/MaiaRouterChatModel/
-
-      - name: Update version (if manual trigger with version)
-        if: github.event_name == 'workflow_dispatch' && github.event.inputs.version != ''
-        run: npm version ${{ github.event.inputs.version }} --no-git-tag-version
 
       - name: Publish to npm
-        run: npm publish --access public
+        run: |
+          cd ${{ steps.package.outputs.path }}
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Post-publish verification
         run: |
+          cd ${{ steps.package.outputs.path }}
           PACKAGE_NAME=$(node -p "require('./package.json').name")
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
           echo "Published $PACKAGE_NAME@$PACKAGE_VERSION"

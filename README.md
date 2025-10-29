@@ -1,48 +1,55 @@
 # n8n Integration for MAIA Router
 
-This is an n8n community node package for integrating with [Maia Router](https://maiarouter.ai), an AI model routing service.
+This repository contains n8n community nodes for integrating with [MAIA Router](https://maiarouter.ai), an AI model routing service.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
-## Features
+## 📦 Two Packages for Different Needs
 
-This package provides **two powerful nodes** for working with MAIA Router:
+This project is split into two packages to support both n8n Cloud and self-hosted deployments:
 
-### 1. **MAIA Router Chat Completion**
-A standard n8n node for direct chat completion API calls. Use this for simple, one-off chat completions with full control over all parameters.
+### 1. **Chat Action** (Cloud + Self-hosted) ✅
 
-### 2. **MAIA Router Chat Model**
-A LangChain-compatible AI language model node that integrates with n8n's AI ecosystem. Use this for advanced AI workflows, agent chains, and when you need LangChain compatibility.
+**Package**: `@maia-id/n8n-nodes-maia-router-chat-action`
 
-## Installation
+- ✅ Works on n8n Cloud
+- ✅ Works on self-hosted n8n
+- Direct API operations: Chat Completion, TTS, Transcribe
+- Zero external dependencies
 
-Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+[→ View Chat Action Package](./packages/chat-action)
 
-### Community Nodes (Recommended)
+### 2. **Chat Model** (Self-hosted Only) ⚠️
 
-1. Open n8n
-2. Go to **Settings** > **Community Nodes**
-3. Select **Install**
-4. Enter `@maia-id/n8n-nodes-maia-router` in **Enter npm package name**
-5. Agree to the risks and install
+**Package**: `@maia-id/n8n-nodes-maia-router-chat-model`
 
-### Manual Installation
+- ❌ Blocked on n8n Cloud (LangChain dependency)
+- ✅ Works on self-hosted n8n
+- Full AI Agent support with tool calling
+- LangChain integration
 
-To install manually for local development:
+[→ View Chat Model Package](./packages/chat-model)
+
+## 🚀 Quick Installation
+
+### For n8n Cloud Users
+
+```
+@maia-id/n8n-nodes-maia-router-chat-action
+```
+
+### For Self-hosted Users
 
 ```bash
-# Clone or download this repository
-cd n8n-nodes-maia-router
-
-# Install dependencies
-npm install
-
-# Build the node
-npm run build
-
-# Link to n8n (run from n8n installation directory)
-npm link n8n-nodes-maia-router
+npm install @maia-id/n8n-nodes-maia-router
 ```
+
+## 🤔 Which Package Should I Use?
+
+| Your Situation | Install This |
+|----------------|--------------|
+| Using n8n Cloud | `chat-action` only |
+| Self-hosted | `chat-model` & `chat-action` |
 
 ## Configuration
 
