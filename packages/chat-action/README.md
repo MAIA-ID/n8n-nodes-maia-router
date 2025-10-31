@@ -64,11 +64,18 @@ npm install @maia-id/n8n-nodes-maia-router-chat-action
 4. Set model: `openai/gpt-4o-mini-transcribe`
 5. Choose audio source (binary data or URL)
 
+### Text To Video
+1. Add **MAIA Router** node
+2. Select resource: **Video**
+3. Select operation: **Generate Video**
+4. Set model: `sora-2`
+5. Enter prompt
+
 ## Need AI Agent Support?
 
 For LangChain AI Agent support (self-hosted only), install:
 ```bash
-@maia-id/n8n-nodes-maia-router-chat-model
+@maia-id/n8n-nodes-maia-router
 ```
 
 ## Resources
