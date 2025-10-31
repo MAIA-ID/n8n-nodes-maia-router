@@ -58,10 +58,12 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Sync from main repo: ${{ github.sha }}
+            git commit -F- <<EOF
+          Sync from main repo: ${{ github.sha }}
 
-            Synced from: https://github.com/${{ github.repository }}
-            Commit: ${{ github.event.head_commit.message }}"
+          Synced from: https://github.com/${{ github.repository }}
+          Commit: ${{ github.event.head_commit.message }}
+          EOF
             git push
             echo "Changes pushed successfully!"
           fi
