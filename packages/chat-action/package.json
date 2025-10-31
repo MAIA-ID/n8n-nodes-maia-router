@@ -57,7 +57,7 @@
     "prettier": "^2.7.1",
     "typescript": "^5.9.3"
   },
-  "dependencies": {
-    "n8n-core": "^1.0.0"
+  "peerDependencies": {
+    "n8n-workflow": "*"
   }
 }
