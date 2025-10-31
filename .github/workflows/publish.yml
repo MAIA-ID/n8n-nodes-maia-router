@@ -45,6 +45,33 @@ jobs:
         run: |
           npm run build
 
+      - name: Prepare package contents
+        run: |
+          echo "Preparing package contents for: ${{ steps.package.outputs.package }}"
+          PACKAGE_PATH="${{ steps.package.outputs.path }}"
+          mkdir -p "$PACKAGE_PATH/dist"
+
+          # Always include credentials
+          mkdir -p "$PACKAGE_PATH/dist/credentials"
+          cp -R dist/credentials/. "$PACKAGE_PATH/dist/credentials/"
+
+          # Include node(s) depending on selected package
+          mkdir -p "$PACKAGE_PATH/dist/nodes"
+          if [ "${{ steps.package.outputs.package }}" = "chat-action" ]; then
+            echo "Copying MaiaRouter node into chat-action package"
+            mkdir -p "$PACKAGE_PATH/dist/nodes/MaiaRouter"
+            cp -R dist/nodes/MaiaRouter/. "$PACKAGE_PATH/dist/nodes/MaiaRouter/"
+          elif [ "${{ steps.package.outputs.package }}" = "chat-model" ]; then
+            echo "Copying MaiaRouter and MaiaRouterChatModel nodes into chat-model package"
+            mkdir -p "$PACKAGE_PATH/dist/nodes/MaiaRouter"
+            cp -R dist/nodes/MaiaRouter/. "$PACKAGE_PATH/dist/nodes/MaiaRouter/"
+            mkdir -p "$PACKAGE_PATH/dist/nodes/MaiaRouterChatModel"
+            cp -R dist/nodes/MaiaRouterChatModel/. "$PACKAGE_PATH/dist/nodes/MaiaRouterChatModel/"
+          fi
+
+          echo "Resulting package dist contents:"
+          ls -la "$PACKAGE_PATH/dist"
+
       - name: Verify build output
         run: |
           echo "Checking dist directory..."
