@@ -10,6 +10,7 @@ Direct API operations with full control:
 - **Chat Completion** - Generate AI responses
 - **Text to Speech** - Convert text to audio
 - **Transcribe** - Convert audio to text
+- **Text to Video** - Generate video from text
 
 ### MAIA Router Chat Model
 
