@@ -1,7 +1,7 @@
 {
   "name": "@maia-id/n8n-nodes-maia-router-chat-action",
   "version": "1.2.2",
-  "description": "MAIA Router action nodes - Chat, Audio, etc. (Cloud Compatible)",
+  "description": "MAIA Router action nodes - Chat, Audio, Video, etc. (Cloud Compatible)",
   "keywords": [
     "n8n-community-node-package",
     "n8n",
@@ -18,11 +18,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maia-id/n8n-nodes-maia-router.git",
+    "url": "https://github.com/MAIA-ID/n8n-nodes-maia-router-action.git",
     "directory": "packages/chat-action"
   },
   "bugs": {
-    "url": "https://github.com/maia-id/n8n-nodes-maia-router/issues"
+    "url": "https://github.com/MAIA-ID/n8n-nodes-maia-router-action/issues"
   },
   "main": "index.js",
   "scripts": {

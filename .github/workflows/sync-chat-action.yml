@@ -1,0 +1,59 @@
+name: Sync Chat Action Package to Standalone Repo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/chat-action/**'
+      - 'nodes/MaiaRouter/**'
+      - 'credentials/MaiaRouterApi.credentials.ts'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          repository: maia-id/n8n-nodes-maia-router-action
+          token: ${{ secrets.ACTION_REPO_TOKEN }}
+          path: target-repo
+
+      - name: Prepare package structure
+        run: |
+          # Remove old files from target repo (keep .git)
+          find target-repo -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+
+          # Copy essential files only
+          cp packages/chat-action/package.json target-repo/
+          cp packages/chat-action/README.md target-repo/
+
+          # Copy node files
+          mkdir -p target-repo/nodes/MaiaRouter
+          cp nodes/MaiaRouter/MaiaRouter.node.ts target-repo/nodes/MaiaRouter/
+          cp nodes/MaiaRouter/maiaRouter.svg target-repo/nodes/MaiaRouter/
+
+      - name: Commit and push changes
+        run: |
+          cd target-repo
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add .
+
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Sync from main repo: ${{ github.sha }}
+
+            Synced files from n8n-nodes-maia-router repository
+            Commit: ${{ github.event.head_commit.message }}"
+            git push
+            echo "Changes pushed successfully!"
+          fi
