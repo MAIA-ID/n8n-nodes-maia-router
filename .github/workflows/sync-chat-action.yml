@@ -7,7 +7,6 @@ on:
       - 'packages/chat-action/**'
       - 'nodes/MaiaRouter/**'
       - 'credentials/MaiaRouterApi.credentials.ts'
-      - 'index.js'
       - 'LICENSE.md'
   workflow_dispatch:
 
@@ -35,7 +34,6 @@ jobs:
           # Copy package files
           cp packages/chat-action/package.json target-repo/
           cp packages/chat-action/README.md target-repo/
-          cp index.js target-repo/
           cp LICENSE.md target-repo/
 
           # Copy node files
