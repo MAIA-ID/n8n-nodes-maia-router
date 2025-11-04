@@ -43,6 +43,6 @@ If you prefer manual installation or are using a custom n8n setup:
 3. Run the following command:
 
 ```
-npm install n8n-nodes-openrouter
+npm install @maia-id/n8n-nodes-maia-router
 ```
 4. Restart your n8n instance
