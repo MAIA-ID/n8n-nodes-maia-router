@@ -9,27 +9,27 @@ export const getAudioProperties = (): INodeProperties[] => [
         noDataExpression: true,
         displayOptions: { show: { resource: ['audio'] } },
         options: [
-            { name: 'Text to Speech', value: 'textToSpeech', action: 'Convert text to speech', description: 'Generate audio from text using AI voice models' },
-            { name: 'Transcribe', value: 'transcribe', action: 'Transcribe audio to text', description: 'Convert audio to text using speech recognition' },
+            { name: 'Generate audio', value: 'generateAudio', action: 'Generate audio', description: 'Generate audio from text using AI voice models' },
+            { name: 'Transcribe audio', value: 'transcribeAudio', action: 'Transcribe audio', description: 'Convert audio to text using speech recognition' },
         ],
-        default: 'textToSpeech',
+        default: 'generateAudio',
     },
-    { displayName: 'Model', name: 'ttsModel', type: 'options', displayOptions: { show: { resource: ['audio'], operation: ['textToSpeech'] } }, options: [ { name: 'OpenAI GPT-4o Mini TTS', value: 'openai/gpt-4o-mini-tts' }, { name: 'Maia TTS-1', value: 'maia/tts-1' }, { name: 'Maia TTS-1 HD', value: 'maia/tts-1-hd' } ], default: 'openai/gpt-4o-mini-tts', required: true, description: 'ID of the TTS model to use' },
-    { displayName: 'Input Text', name: 'input', type: 'string', typeOptions: { rows: 4 }, displayOptions: { show: { resource: ['audio'], operation: ['textToSpeech'] } }, default: '', required: true, description: 'The text to generate audio for. Maximum length is 4096 characters.' },
-    { displayName: 'Voice', name: 'voice', type: 'options', displayOptions: { show: { resource: ['audio'], operation: ['textToSpeech'] } }, options: [ { name: 'Alloy', value: 'alloy' }, { name: 'Echo', value: 'echo' }, { name: 'Fable', value: 'fable' }, { name: 'Onyx', value: 'onyx' }, { name: 'Nova', value: 'nova' }, { name: 'Shimmer', value: 'shimmer' } ], default: 'alloy', required: true },
-    { displayName: 'Additional Fields', name: 'ttsAdditionalFields', type: 'collection', placeholder: 'Add Field', default: {}, displayOptions: { show: { resource: ['audio'], operation: ['textToSpeech'] } }, options: [ { displayName: 'Response Format', name: 'response_format', type: 'options', options: [ { name: 'MP3', value: 'mp3' }, { name: 'OPUS', value: 'opus' }, { name: 'AAC', value: 'aac' }, { name: 'FLAC', value: 'flac' }, { name: 'WAV', value: 'wav' }, { name: 'PCM', value: 'pcm' } ], default: 'mp3' }, { displayName: 'Speed', name: 'speed', type: 'number', typeOptions: { minValue: 0.25, maxValue: 4.0, numberPrecision: 2 }, default: 1.0 } ] },
-    { displayName: 'Model', name: 'transcribeModel', type: 'options', displayOptions: { show: { resource: ['audio'], operation: ['transcribe'] } }, options: [ { name: 'OpenAI GPT-4o Mini Transcribe', value: 'openai/gpt-4o-mini-transcribe' }, { name: 'Maia Whisper-1', value: 'maia/whisper-1' } ], default: 'openai/gpt-4o-mini-transcribe', required: true, description: 'ID of the transcription model to use' },
-    { displayName: 'Input Data Mode', name: 'inputDataMode', type: 'options', displayOptions: { show: { resource: ['audio'], operation: ['transcribe'] } }, options: [ { name: 'Binary File', value: 'binaryData' }, { name: 'Audio URL', value: 'url' } ], default: 'binaryData' },
-    { displayName: 'Binary Property', name: 'binaryProperty', type: 'string', displayOptions: { show: { resource: ['audio'], operation: ['transcribe'], inputDataMode: ['binaryData'] } }, default: 'data', required: true },
-    { displayName: 'Audio URL', name: 'audioUrl', type: 'string', displayOptions: { show: { resource: ['audio'], operation: ['transcribe'], inputDataMode: ['url'] } }, default: '', required: true },
-    { displayName: 'Additional Fields', name: 'transcribeAdditionalFields', type: 'collection', placeholder: 'Add Field', default: {}, displayOptions: { show: { resource: ['audio'], operation: ['transcribe'] } }, options: [ { displayName: 'Language', name: 'language', type: 'string', default: '' }, { displayName: 'Prompt', name: 'prompt', type: 'string', typeOptions: { rows: 3 }, default: '' }, { displayName: 'Response Format', name: 'response_format', type: 'options', options: [ { name: 'JSON', value: 'json' }, { name: 'Text', value: 'text' }, { name: 'SRT', value: 'srt' }, { name: 'VTT', value: 'vtt' }, { name: 'Verbose JSON', value: 'verbose_json' } ], default: 'json' }, { displayName: 'Temperature', name: 'temperature', type: 'number', typeOptions: { minValue: 0, maxValue: 1, numberPrecision: 2 }, default: 0 } ] },
+    { displayName: 'Model', name: 'ttsModel', type: 'options', displayOptions: { show: { resource: ['audio'], operation: ['generateAudio'] } }, options: [ { name: 'OpenAI GPT-4o Mini TTS', value: 'openai/gpt-4o-mini-tts' }, { name: 'OpenAI TTS-1', value: 'openai/tts-1' }, { name: 'OpenAI TTS-1 HD', value: 'openai/tts-1-hd' }, { name: 'Gemini 2.5 Pro Preview TTS', value: 'maia/gemini-2.5-pro-preview-tts' } ], default: 'openai/gpt-4o-mini-tts', required: true, description: 'ID of the TTS model to use' },
+    { displayName: 'Input Text', name: 'input', type: 'string', typeOptions: { rows: 4 }, displayOptions: { show: { resource: ['audio'], operation: ['generateAudio'] } }, default: '', required: true, description: 'The text to generate audio for. Maximum length is 4096 characters.' },
+    { displayName: 'Voice', name: 'voice', type: 'options', displayOptions: { show: { resource: ['audio'], operation: ['generateAudio'] } }, options: [ { name: 'Alloy', value: 'alloy' }, { name: 'Echo', value: 'echo' }, { name: 'Fable', value: 'fable' }, { name: 'Onyx', value: 'onyx' }, { name: 'Nova', value: 'nova' }, { name: 'Shimmer', value: 'shimmer' } ], default: 'alloy', required: true },
+    { displayName: 'Additional Fields', name: 'ttsAdditionalFields', type: 'collection', placeholder: 'Add Field', default: {}, displayOptions: { show: { resource: ['audio'], operation: ['generateAudio'] } }, options: [ { displayName: 'Response Format', name: 'response_format', type: 'options', options: [ { name: 'MP3', value: 'mp3' }, { name: 'OPUS', value: 'opus' }, { name: 'AAC', value: 'aac' }, { name: 'FLAC', value: 'flac' }, { name: 'WAV', value: 'wav' }, { name: 'PCM', value: 'pcm' } ], default: 'mp3' }, { displayName: 'Speed', name: 'speed', type: 'number', typeOptions: { minValue: 0.25, maxValue: 4.0, numberPrecision: 2 }, default: 1.0 } ] },
+    { displayName: 'Model', name: 'transcribeModel', type: 'options', displayOptions: { show: { resource: ['audio'], operation: ['transcribeAudio'] } }, options: [ { name: 'OpenAI GPT-4o Mini Transcribe', value: 'openai/gpt-4o-mini-transcribe' }, { name: 'Maia Whisper-1', value: 'maia/whisper-1' } ], default: 'openai/gpt-4o-mini-transcribe', required: true, description: 'ID of the transcription model to use' },
+    { displayName: 'Input Data Mode', name: 'inputDataMode', type: 'options', displayOptions: { show: { resource: ['audio'], operation: ['transcribeAudio'] } }, options: [ { name: 'Binary File', value: 'binaryData' }, { name: 'Audio URL', value: 'url' } ], default: 'binaryData' },
+    { displayName: 'Binary Property', name: 'binaryProperty', type: 'string', displayOptions: { show: { resource: ['audio'], operation: ['transcribeAudio'], inputDataMode: ['binaryData'] } }, default: 'data', required: true },
+    { displayName: 'Audio URL', name: 'audioUrl', type: 'string', displayOptions: { show: { resource: ['audio'], operation: ['transcribeAudio'], inputDataMode: ['url'] } }, default: '', required: true },
+    { displayName: 'Additional Fields', name: 'transcribeAdditionalFields', type: 'collection', placeholder: 'Add Field', default: {}, displayOptions: { show: { resource: ['audio'], operation: ['transcribeAudio'] } }, options: [ { displayName: 'Language', name: 'language', type: 'string', default: '' }, { displayName: 'Prompt', name: 'prompt', type: 'string', typeOptions: { rows: 3 }, default: '' }, { displayName: 'Response Format', name: 'response_format', type: 'options', options: [ { name: 'JSON', value: 'json' }, { name: 'Text', value: 'text' }, { name: 'SRT', value: 'srt' }, { name: 'VTT', value: 'vtt' }, { name: 'Verbose JSON', value: 'verbose_json' } ], default: 'json' }, { displayName: 'Temperature', name: 'temperature', type: 'number', typeOptions: { minValue: 0, maxValue: 1, numberPrecision: 2 }, default: 0 } ] },
 ];
 
 export async function executeAudio(ctx: IExecuteFunctions, i: number, returnData: INodeExecutionData[]): Promise<void> {
     const operation = ctx.getNodeParameter('operation', i) as string;
     const credentials = await ctx.getCredentials('maiaRouterApi');
 
-    if (operation === 'textToSpeech') {
+    if (operation === 'generateAudio') {
         const model = ctx.getNodeParameter('ttsModel', i) as string;
         const input = ctx.getNodeParameter('input', i) as string;
         const voice = ctx.getNodeParameter('voice', i) as string;
@@ -83,7 +83,7 @@ export async function executeAudio(ctx: IExecuteFunctions, i: number, returnData
         return;
     }
 
-    if (operation === 'transcribe') {
+    if (operation === 'transcribeAudio') {
         const model = ctx.getNodeParameter('transcribeModel', i) as string;
         const inputDataMode = ctx.getNodeParameter('inputDataMode', i) as string;
         const additionalFields = ctx.getNodeParameter('transcribeAdditionalFields', i) as IDataObject;

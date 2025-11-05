@@ -9,12 +9,12 @@ export const getImageProperties = (): INodeProperties[] => [
         noDataExpression: true,
         displayOptions: { show: { resource: ['image'] } },
         options: [
-            { name: 'Generate Image', value: 'generateImage', action: 'Generate image from text', description: 'Generate an image from a text prompt' },
-            { name: 'Edit Image', value: 'editImage', action: 'Edit image with prompt', description: 'Edit or inpaint an image using a prompt and optional mask' },
+            { name: 'Generate image', value: 'generateImage', action: 'Generate image', description: 'Generate an image from a text prompt' },
+            { name: 'Edit Image', value: 'editImage', action: 'Edit image', description: 'Edit or inpaint an image using a prompt and optional mask' },
         ],
         default: 'generateImage',
     },
-    // Generate Image
+    // Generate image
     { displayName: 'Model', name: 'imageModel', type: 'options', displayOptions: { show: { resource: ['image'], operation: ['generateImage'] } }, options: [{ name: 'GPT Image 1', value: 'openai/gpt-image-1' }, { name: 'Gemini Nano Banana', value: 'maia/gemini-2.5-flash-image-preview' }], default: 'openai/gpt-image-1', required: true, description: 'ID of the image model to use' },
     { displayName: 'Prompt', name: 'prompt', type: 'string', typeOptions: { rows: 4 }, displayOptions: { show: { resource: ['image'], operation: ['generateImage'] } }, default: '', required: true, description: 'Text prompt describing the desired image' },
     {
@@ -237,7 +237,7 @@ export async function executeImage(ctx: IExecuteFunctions, i: number, returnData
         } as IHttpRequestOptions;
         const response = await requestWithHandling(ctx, options);
 
-        // Handle the response format from images/edits endpoint (same as generate image)
+        // Handle the response format from images/edits endpoint (same as Generate image)
         if (response && response.data && Array.isArray(response.data)) {
             const processedImages = [];
             const binaryData: IBinaryKeyData = {};
