@@ -11,10 +11,12 @@ This package provides action-based operations for [MAIA Router](https://maiarout
 ### MAIA Router Node
 
 Direct API operations with full control:
-- **Chat Completion** - Generate AI responses
-- **Text to Speech** - Convert text to audio
-- **Transcribe** - Convert audio to text
-- **Text to Video** - Generate video from text
+- **Chat Completion** - Generate chat responses
+- **Generate Audio** - Convert text to audio
+- **Transcribe Audio** - Convert audio to text
+- **Generate Video** - Generate video from text
+- **Generate Image** - Generate image from text
+- **Edit Image** - Edit existing image
 
 ## Installation
 
